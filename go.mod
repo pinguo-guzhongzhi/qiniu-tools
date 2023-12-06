@@ -1,4 +1,4 @@
-module qiniu-tools
+module github.com/pinguo-guzhongzhi/qiniu-tools
 
 go 1.19
 
