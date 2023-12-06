@@ -22,16 +22,23 @@ func main() {
 		accessKey: ak,
 		secretKey: sk,
 	}
-	if url == "" {
-		panic("url不能为空")
-	}
+
+	urls := []string{}
 
 	dirs := []string{}
 	if dir != "" {
 		dirs = append(dirs, dir)
 	}
 
-	err := qiniu.RefreshCDN([]string{url}, dirs)
+	if url != "" {
+		urls = append(urls, url)
+	}
+
+	if len(urls) == 0 && len(dirs) == 0 {
+		panic("url/dir不能为空")
+	}
+
+	err := qiniu.RefreshCDN(urls, dirs)
 	if err != nil {
 		fmt.Println(err)
 	}
