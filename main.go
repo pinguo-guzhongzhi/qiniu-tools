@@ -7,9 +7,11 @@ import (
 )
 
 var url string
+var dir string
 
 func init() {
 	flag.StringVar(&url, "url", "", "需要刷新的Url地址")
+	flag.StringVar(&dir, "dir", "", "需要刷新的Dir目录")
 }
 
 func main() {
@@ -23,7 +25,13 @@ func main() {
 	if url == "" {
 		panic("url不能为空")
 	}
-	err := qiniu.RefreshCDN([]string{url}, nil)
+
+	dirs := []string{}
+	if dir != "" {
+		dirs = append(dirs, dir)
+	}
+
+	err := qiniu.RefreshCDN([]string{url}, dirs)
 	if err != nil {
 		fmt.Println(err)
 	}
