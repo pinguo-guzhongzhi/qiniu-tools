@@ -78,7 +78,8 @@ func (s *QiNiu) Prefetch(urls []string) error {
 	}
 	fmt.Println("start to check result")
 	params = map[string]interface{}{
-		"urls": urls,
+		"urls":      urls,
+		"requestId": rspData.RequestID,
 	}
 	taskStatus := make(map[string]bool)
 	for _, taskID := range rspData.TaskIds {
@@ -223,7 +224,8 @@ func (s *QiNiu) RefreshCDN(urls []string, dirs []string) error {
 			maxNumber--
 			time.Sleep(time.Second * 5)
 			params := map[string]interface{}{
-				"taskId": taskID,
+				"taskId":    taskID,
+				"requestId": rspData.RequestID,
 			}
 			body, _ := json.Marshal(params)
 			rspBody, err := s.sendRequest(body, QiNiuURL+"/v2/tune/refresh/list")
