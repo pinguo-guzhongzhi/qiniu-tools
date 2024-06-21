@@ -97,7 +97,6 @@ func (s *QiNiu) Prefetch(urls []string) error {
 		if err != nil {
 			return err
 		}
-		fmt.Println("rspBody", string(rspBody))
 		var rspData QueryResponse
 		err = json.Unmarshal(rspBody, &rspData)
 		if err != nil {
@@ -228,7 +227,6 @@ func (s *QiNiu) RefreshCDN(urls []string, dirs []string) error {
 			}
 			body, _ := json.Marshal(params)
 			rspBody, err := s.sendRequest(body, QiNiuURL+"/v2/tune/refresh/list")
-			fmt.Println("rspBody", string(rspBody))
 			if err != nil {
 				break
 			}
