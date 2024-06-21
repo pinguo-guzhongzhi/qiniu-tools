@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 )
 
 var url string
@@ -28,11 +29,25 @@ func main() {
 	urls := []string{}
 	dirs := []string{}
 	if dir != "" {
-		dirs = append(dirs, dir)
+		tmp := strings.Split(dir, ",")
+		for _, u := range tmp {
+			u = strings.TrimSpace(u)
+			if u == "" {
+				continue
+			}
+			dirs = append(dirs, u)
+		}
 	}
 
 	if url != "" {
-		urls = append(urls, url)
+		tmp := strings.Split(url, ",")
+		for _, u := range tmp {
+			u = strings.TrimSpace(u)
+			if u == "" {
+				continue
+			}
+			urls = append(urls, u)
+		}
 	}
 
 	if len(urls) == 0 && len(dirs) == 0 {
