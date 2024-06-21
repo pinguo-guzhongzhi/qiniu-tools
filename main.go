@@ -8,10 +8,12 @@ import (
 
 var url string
 var dir string
+var prefetch bool
 
 func init() {
 	flag.StringVar(&url, "url", "", "需要刷新的Url地址")
 	flag.StringVar(&dir, "dir", "", "需要刷新的Dir目录")
+	flag.BoolVar(&prefetch, "prefetch", false, "生成新的缓存")
 }
 
 func main() {
@@ -24,7 +26,6 @@ func main() {
 	}
 
 	urls := []string{}
-
 	dirs := []string{}
 	if dir != "" {
 		dirs = append(dirs, dir)
@@ -37,8 +38,12 @@ func main() {
 	if len(urls) == 0 && len(dirs) == 0 {
 		panic("url/dir不能为空")
 	}
-
-	err := qiniu.RefreshCDN(urls, dirs)
+	var err error
+	if prefetch {
+		err = qiniu.Prefetch(urls)
+	} else {
+		err = qiniu.RefreshCDN(urls, dirs)
+	}
 	if err != nil {
 		fmt.Println(err)
 	}
