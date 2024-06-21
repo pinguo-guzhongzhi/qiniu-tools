@@ -104,7 +104,7 @@ func (s *QiNiu) Prefetch(urls []string) error {
 			continue
 		}
 		for _, item := range rspData.Items {
-			if _, ok := taskStatus[item.State]; ok {
+			if _, ok := taskStatus[item.TaskID]; ok {
 				taskStatus[item.TaskID] = item.State != "processing"
 			}
 		}
