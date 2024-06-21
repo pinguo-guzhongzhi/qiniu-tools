@@ -88,7 +88,7 @@ func (s *QiNiu) Prefetch(urls []string) error {
 	maxNumber := 30
 	for {
 		fmt.Println("=========")
-		time.Sleep(time.Second * 2)
+		time.Sleep(time.Second * 5)
 		if maxNumber <= 0 {
 			break
 		}
@@ -222,7 +222,7 @@ func (s *QiNiu) RefreshCDN(urls []string, dirs []string) error {
 				break
 			}
 			maxNumber--
-			time.Sleep(time.Second * 2)
+			time.Sleep(time.Second * 5)
 			params := map[string]interface{}{
 				"taskId": taskID,
 			}
